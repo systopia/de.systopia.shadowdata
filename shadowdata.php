@@ -16,6 +16,14 @@
 require_once 'shadowdata.civix.php';
 use CRM_Shadowdata_ExtensionUtil as E;
 
+
+/**
+ * Implements hook_civicrm_merge().
+ */
+function shadowdata_civicrm_merge($type, &$data, $mainId = NULL, $otherId = NULL, $tables = NULL) {
+  // TODO: implement, so that merges in the shadowdata will maintain the right contact ID
+}
+
 /**
  * Implements hook_civicrm_config().
  *

@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `shadowdata_contact`(
      `country_id`              int(10) unsigned       COMMENT 'civicrm_address field',
     PRIMARY KEY (`id`),
     UNIQUE INDEX `code` (code),
+    INDEX `contact_id` (contact_id),
     INDEX `use_by` (use_by),
     INDEX `import_date` (import_date),
     INDEX `source` (source),
