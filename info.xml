@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<extension key="de.systopia.shadowdata" type="module">
+  <file>shadowdata</file>
+  <name>Shadow-Data</name>
+  <description>Manages a shadow database, only accessible with the right code</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>SYSTOPIA</author>
+    <email>endres@systopia.de</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">https://github.com/systopia/de.systopia.shadowdata</url>
+    <url desc="Documentation">https://github.com/systopia/de.systopia.shadowdata</url>
+    <url desc="Support">https://github.com/systopia/de.systopia.shadowdata/issues</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate></releaseDate>
+  <version>0.1-dev</version>
+  <develStage>dev</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <comments>This module should facilitate the leased contact data, that will automatically copied into the CiviCRM database, should they contact you with the right code.</comments>
+  <civix>
+    <namespace>CRM/Shadowdata</namespace>
+  </civix>
+</extension>
