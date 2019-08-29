@@ -23,6 +23,7 @@ class CRM_Shadowdata_Contact {
   public static $fields_address  = ['street_address','supplemental_address_1','supplemental_address_2','city','postal_code','country_id'];
   public static $fields_email    = ['email'];
   public static $fields_phone    = ['phone'];
+  public static $file_header     = ['code','use_by','source','contact_type','organization_name','household_name','first_name','last_name','formal_title','prefix_id','suffix_id','gender_id','birth_date','job_title','email','phone','street_address','supplemental_address_1','supplemental_address_2','city','postal_code','country_id'];
 
   /**
    * Unlock/get the contact with the given code
@@ -117,6 +118,72 @@ class CRM_Shadowdata_Contact {
     }
 
     return $contact_id;
+  }
+
+  /**
+   * Import the given CSV file
+   *
+   * @param $file_name string file name
+   * @return int|string returns int (number of records imported) or string in case of an error
+   * @throws Exception
+   */
+  public static function import($file_name) {
+    $import_count = 0;
+    $data = fopen($file_name, 'r');
+    $header = fgetcsv($data, 0, ';');
+    if (count($header) != count(self::$file_header)) {
+      return E::ts("Wrong number of columns, or possibly wrong separator. Use the template.");
+    }
+    if ($header != self::$file_header) {
+      return E::ts("Unexpected headers. Use the template.");
+    }
+    while ($raw_row = fgetcsv($data, 0, ';')) {
+      // convert row in to row_data
+      $row = [];
+      for ($i = 0; $i < count($header); $i++) {
+        $row[$header[$i]] = $raw_row[$i];
+      }
+
+      if (self::importRow($row)) {
+        $import_count += 1;
+      }
+    }
+    return $import_count;
+  }
+
+  /**
+   * Import the given CSV file
+   *
+   * @param $row array data
+   * @return boolean
+   * @throws Exception
+   */
+  protected static function importRow($row) {
+    // check if code is free
+    $table_name = self::$table_name;
+    if (empty($row['code'])) {
+      throw new Exception(E::ts("Missing code(s)"));
+    }
+    $code_exists = CRM_Core_DAO::singleValueQuery("SELECT id FROM {$table_name} WHERE code = %1;", [1 => [$row['code'], 'String']]);
+    if ($code_exists) {
+      throw new Exception(E::ts("Duplicate code '%1'", [1 => $row['code']]));
+    }
+
+    // build insert query
+    $sql_params = [];
+    $sql_vars   = [];
+    foreach ($row as $name => $value) {
+      $sql_params[] = [$value, 'String'];
+      $sql_var = "%" . count($sql_vars);
+      if ($name == 'country_id') {
+        $sql_vars[]   = "(SELECT id FROM civicrm_country WHERE iso_code = {$sql_var})";
+      } else {
+        $sql_vars[] = $sql_var;
+      }
+    }
+    // run the query
+    CRM_Core_DAO::executeQuery("INSERT INTO {$table_name} (import_date, " . implode(',', array_keys($row)) . ") VALUES (NOW(), " . implode(',', $sql_vars) . ");", $sql_params);
+    return TRUE;
   }
 
   /**
