@@ -120,6 +120,15 @@ class CRM_Shadowdata_Contact {
   }
 
   /**
+   * Get some statistics on contacts
+   * @param $stats
+   */
+  public static function addStatistics(&$stats) {
+    $stats['TEST'] = "TEST";
+  }
+
+
+  /**
    * Helper function to copy all
    * @param array        $fields
    * @param CRM_Core_DAO $record
@@ -138,3 +147,5 @@ class CRM_Shadowdata_Contact {
     return $data;
   }
 }
+
+

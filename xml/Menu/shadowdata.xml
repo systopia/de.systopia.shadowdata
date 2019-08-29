@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/shadowdata</path>
+    <page_callback>CRM_Shadowdata_Form_ShadowData</page_callback>
+    <title>ShadowData</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>
