@@ -18,10 +18,17 @@ use CRM_Shadowdata_ExtensionUtil as E;
 
 
 /**
- * Implements hook_civicrm_merge().
+ * Implements merge integration
+ *
+ * A contact merge should *always* move all submission records to the new contact
  */
 function shadowdata_civicrm_merge($type, &$data, $mainId = NULL, $otherId = NULL, $tables = NULL) {
-  // TODO: implement, so that merges in the shadowdata will maintain the right contact ID
+  if ($type == 'sqls') {
+    // if an unlocked contact is merged, attach the record to the remaining contact
+    if (is_numeric($mainId) && is_numeric($otherId)) {
+      $data[] = "UPDATE `shadowdata_contact` SET `contact_id` = {$mainId} WHERE `contact_id` = {$otherId};";
+    }
+  }
 }
 
 /**
