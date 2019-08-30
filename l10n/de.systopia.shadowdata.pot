@@ -1,0 +1,116 @@
+# Copyright CiviCRM LLC (c) 2004-2015
+# This file is distributed under the same license as the CiviCRM package.
+# If you contribute heavily to a translation and deem your work copyrightable,
+# make sure you license it to CiviCRM LLC under Academic Free License 3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: de.systopia.shadowdata\n"
+"POT-Creation-Date: 2019-08-30 08:50+0200\n"
+"Language-Team: CiviCRM Translators <civicrm-translators@lists.civicrm.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Wrong number of columns, or possibly wrong separator. Use the template."
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Unexpected headers. Use the template."
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Missing code(s)"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Duplicate code '%1'"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets unlocked"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets outdated"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets unlocked"
+msgstr ""
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets outdated"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Shadow-Data Overview"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import More Data"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import Failed"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "%1 records imported"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import Completed"
+msgstr ""
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Incorrect file type, expected CSV file."
+msgstr ""
+
+#: CRM/Shadowdata/Upgrader/Base.php
+msgid "Upgrade %1 to revision %2"
+msgstr ""
+
+#: api/v3/Contact/GetShadow.php
+msgid "Contact not found"
+msgstr ""
+
+#: api/v3/Contact/GetShadow.php
+msgid "Code"
+msgstr ""
+
+#: api/v3/Contact/GetShadow.php
+msgid "Provide the code to unlock or identify the contact"
+msgstr ""
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid "Statistics"
+msgstr ""
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid "Upload More Contact Records"
+msgstr ""
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid ""
+"To import more data you need to upload an ISO 8859-1 encoded CSV file with "
+"';' separators."
+msgstr ""
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid ""
+"You can download a template <a download='ShadowContacts.csv' href="
+"\"%1\">HERE</a>"
+msgstr ""

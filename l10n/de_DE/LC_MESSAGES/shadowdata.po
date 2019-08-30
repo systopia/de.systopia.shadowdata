@@ -1,0 +1,127 @@
+# Copyright CiviCRM LLC (c) 2004-2015
+# This file is distributed under the same license as the CiviCRM package.
+# If you contribute heavily to a translation and deem your work copyrightable,
+# make sure you license it to CiviCRM LLC under Academic Free License 3.0.
+msgid ""
+msgstr ""
+"Project-Id-Version: de.systopia.shadowdata\n"
+"POT-Creation-Date: 2019-08-30 08:50+0200\n"
+"Language-Team: CiviCRM Translators <civicrm-translators@lists.civicrm.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: \n"
+"X-Generator: Poedit 2.0.6\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: de_DE\n"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Wrong number of columns, or possibly wrong separator. Use the template."
+msgstr ""
+"Falsche Spaltenanzahl. Eventuell wurde auch ein falscher Feldtrenner "
+"verwendet. Bitte die Vorlage verwenden."
+
+#: CRM/Shadowdata/Contact.php
+msgid "Unexpected headers. Use the template."
+msgstr "Unbekannte Spalten. Bitte die Vorlage verwenden."
+
+#: CRM/Shadowdata/Contact.php
+msgid "Missing code(s)"
+msgstr "Fehlende Codes"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Duplicate code '%1'"
+msgstr "Code  '%1' wird bereits verwendet"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets"
+msgstr "Gesamtzahl Datensätze"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets unlocked"
+msgstr "Freigeschaltete Datensätze"
+
+#: CRM/Shadowdata/Contact.php
+msgid "Total datasets outdated"
+msgstr "Abgelaufene Datensätze"
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets"
+msgstr "'%1' Datensätze"
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets unlocked"
+msgstr "'%1' freigeschaltete Datensätze"
+
+#: CRM/Shadowdata/Contact.php
+msgid "'%1' datasets outdated"
+msgstr "'%1' abgelaufene Datensätze"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Shadow-Data Overview"
+msgstr "Übersicht der Schattendatensätze"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import More Data"
+msgstr "Datensätze Importieren"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import"
+msgstr "Import"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import Failed"
+msgstr "Import Fehlgeschlagen"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "%1 records imported"
+msgstr "%1 Datensätze importiert"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Import Completed"
+msgstr "Import Abgeschlossen"
+
+#: CRM/Shadowdata/Form/ShadowData.php
+msgid "Incorrect file type, expected CSV file."
+msgstr "Falscher Dateityp. Es wird eine CSV Datei benötigt."
+
+#: CRM/Shadowdata/Upgrader/Base.php
+msgid "Upgrade %1 to revision %2"
+msgstr ""
+
+#: api/v3/Contact/GetShadow.php
+msgid "Contact not found"
+msgstr "Kontakt nicht gefunden."
+
+#: api/v3/Contact/GetShadow.php
+msgid "Code"
+msgstr "Code"
+
+#: api/v3/Contact/GetShadow.php
+msgid "Provide the code to unlock or identify the contact"
+msgstr "Freigabe Code des Schattenkontakts"
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid "Statistics"
+msgstr "Statistik"
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid "Upload More Contact Records"
+msgstr "Import von weiteren Schattendatensätzen"
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid ""
+"To import more data you need to upload an ISO 8859-1 encoded CSV file with "
+"';' separators."
+msgstr ""
+"Zum Importiert wird eine CSV Datei mit ISO 8859-1 Codierung und ';' "
+"Feldtrennern benötigt"
+
+#: templates/CRM/Shadowdata/Form/ShadowData.tpl
+msgid ""
+"You can download a template <a download='ShadowContacts.csv' href="
+"\"%1\">HERE</a>"
+msgstr ""
+"Sie können eine Dateivorlage <a download='ShadowContacts.csv' href="
+"\"%1\">HIER</a> herunterladen."
