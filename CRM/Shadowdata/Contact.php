@@ -193,10 +193,10 @@ class CRM_Shadowdata_Contact {
   public static function addStatistics(&$stats) {
     $table_name = self::$table_name;
     $query = "SELECT
-        source                                                                      AS source,
-        COUNT(id)                                                                   AS total,
-        SUM(CASE WHEN contact_id IS NULL THEN 0 ELSE 1 END)                         AS unlocked,
-        SUM(CASE WHEN unlock_date > NOW() AND contact_id IS NULL THEN 1 ELSE 0 END) AS outdated
+        source                                                                        AS source,
+        COUNT(id)                                                                     AS total,
+        SUM(CASE WHEN contact_id IS NULL THEN 0 ELSE 1 END)                           AS unlocked,
+        SUM(CASE WHEN ((use_by < NOW()) AND (contact_id IS NULL)) THEN 1 ELSE 0 END)  AS outdated
     FROM {$table_name}";
 
     // run for all
@@ -229,7 +229,8 @@ class CRM_Shadowdata_Contact {
     } else {
       $count = (float) $count;
       $total = (float) $total;
-      return sprintf("%d (%.2f%%)", $count, ($count / $total * 100.0));
+      //return sprintf("%d (%.1f%%)", $count, ($count / $total * 100.0));
+      return sprintf("%d (%d%%)", $count, ($count / $total * 100.0));
     }
   }
 
