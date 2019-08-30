@@ -191,9 +191,47 @@ class CRM_Shadowdata_Contact {
    * @param $stats
    */
   public static function addStatistics(&$stats) {
-    $stats['TEST'] = "TEST";
+    $table_name = self::$table_name;
+    $query = "SELECT
+        source                                                                      AS source,
+        COUNT(id)                                                                   AS total,
+        SUM(CASE WHEN contact_id IS NULL THEN 0 ELSE 1 END)                         AS unlocked,
+        SUM(CASE WHEN unlock_date > NOW() AND contact_id IS NULL THEN 1 ELSE 0 END) AS outdated
+    FROM {$table_name}";
+
+    // run for all
+    $general_result = CRM_Core_DAO::executeQuery($query);
+    $general_result->fetch();
+    $stats[E::ts("Total datasets")]          = (int) $general_result->total;
+    $stats[E::ts("Total datasets unlocked")] = self::percentage($general_result->unlocked, $general_result->total);
+    $stats[E::ts("Total datasets outdated")] = self::percentage($general_result->outdated, $general_result->total);
+
+    // run by source
+    $source_result = CRM_Core_DAO::executeQuery($query);
+    while ($source_result->fetch()) {
+      $source_name = $source_result->source;
+      $stats[E::ts("'%1' datasets", [1 => $source_name])]          = (int) $source_result->total;
+      $stats[E::ts("'%1' datasets unlocked", [1 => $source_name])] = self::percentage($source_result->unlocked, $source_result->total);
+      $stats[E::ts("'%1' datasets outdated", [1 => $source_name])] = self::percentage($source_result->outdated, $source_result->total);
+    }
   }
 
+  /**
+   * Render a nice percentage string
+   *
+   * @param $count float
+   * @param $total float
+   * @return string
+   */
+  protected static function percentage($count, $total) {
+    if ($total == 0) {
+      return "0 (0%)";
+    } else {
+      $count = (float) $count;
+      $total = (float) $total;
+      return sprintf("%d (%.2f%%)", $count, ($count / $total * 100.0));
+    }
+  }
 
   /**
    * Helper function to copy all
