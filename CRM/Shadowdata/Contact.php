@@ -17,7 +17,7 @@ use CRM_Shadowdata_ExtensionUtil as E;
 
 class CRM_Shadowdata_Contact {
 
-  public static $table_name      = 'shadowdata_contact';
+  private static $table_name      = 'shadowdata_contact';
   public static $fields_metadata = ['id','contact_id','code','import_date','unlock_date','use_by','source'];
   public static $fields_contact  = ['contact_type','organization_name','household_name','first_name','last_name','formal_title','prefix_id','suffix_id','gender_id','birth_date','job_title'];
   public static $fields_address  = ['street_address','supplemental_address_1','supplemental_address_2','city','postal_code','country_id'];
@@ -37,7 +37,7 @@ class CRM_Shadowdata_Contact {
 
     // query the table for an entry that has either been already booked (contact_id IS NOT NULL)
     //   or still valid for unlocking (use_by > NOW() OR use_by IS NULL)
-    $table_name = self::$table_name;
+    $table_name = self::getTableName();
     $record     = CRM_Core_DAO::executeQuery("
         SELECT id AS record_id, contact_id AS contact_id 
         FROM `{$table_name}` WHERE code = %1 
@@ -65,7 +65,7 @@ class CRM_Shadowdata_Contact {
     $record_id = (int) $record_id;
     // first, get the full contact data
     $all_fields = array_merge(self::$fields_metadata, self::$fields_contact, self::$fields_address, self::$fields_email, self::$fields_phone);
-    $record = CRM_Core_DAO::executeQuery("SELECT " . implode(',', $all_fields) . " FROM " . self::$table_name . " WHERE id = {$record_id}");
+    $record = CRM_Core_DAO::executeQuery("SELECT " . implode(',', $all_fields) . " FROM " . $table_name = self::getTableName() . " WHERE id = {$record_id}");
     if (!$record->fetch()) {
       throw new Exception("Shadow contact record {$record_id} could not be found");
     }
@@ -109,7 +109,7 @@ class CRM_Shadowdata_Contact {
       $transaction = NULL;
 
       // update record (set contact ID and unlock timestamp)
-      CRM_Core_DAO::executeQuery("UPDATE " . self::$table_name . " SET contact_id ={$contact_id}, unlock_date = NOW() WHERE id = {$record_id}");
+      CRM_Core_DAO::executeQuery("UPDATE " . $table_name = self::getTableName() . " SET contact_id ={$contact_id}, unlock_date = NOW() WHERE id = {$record_id}");
 
     } catch (Exception $ex) {
       if ($transaction) {
@@ -161,7 +161,7 @@ class CRM_Shadowdata_Contact {
    */
   protected static function importRow($row) {
     // check if code is free
-    $table_name = self::$table_name;
+    $table_name = self::getTableName();
     if (empty($row['code'])) {
       throw new Exception(E::ts("Missing code(s)"));
     }
@@ -217,7 +217,7 @@ class CRM_Shadowdata_Contact {
    * @param $stats
    */
   public static function addStatistics(&$stats) {
-    $table_name = self::$table_name;
+    $table_name = self::getTableName();
     $query = "SELECT
         source                                                                        AS source,
         COUNT(id)                                                                     AS total,
@@ -277,6 +277,19 @@ class CRM_Shadowdata_Contact {
       }
     }
     return $data;
+  }
+
+  /**
+   * Get the fully qualified table name
+   */
+  public static function getTableName() {
+    $table_name = self::$table_name;
+    $database = CRM_Shadowdata_Config::getShadowdataTableDB();
+    if ($database) {
+      return "{$database}.{$table_name}";
+    } else {
+      return $table_name;
+    }
   }
 }
 

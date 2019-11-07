@@ -98,4 +98,33 @@ class CRM_Shadowdata_Config {
     return !empty($data['phone']);
   }
 
+  /**
+   * Get the prefix for the shadowdata tables
+   * @return string prefix
+   */
+  public static function getShadowdataTableDB() {
+    $prefix = Civi::settings()->get('shadowdata_dbname');
+    if (empty($prefix)) {
+      return '';
+    } else {
+      return $prefix;
+    }
+  }
+
+  /**
+   * Set the prefix for the shadowdata tables, and make sure they exist
+   *
+   * @param $prefix string prefix
+   */
+  public static function setShadowdataTableDB($prefix) {
+    if ($prefix != self::getShadowdataTableDB()) {
+      // the prefix has changed: run the table create statement with a prefix
+      $create_sql = file_get_contents(E::path('sql/shadowdata_contact.sql'));
+      if (!empty($prefix)) {
+        $create_sql = preg_replace("/CREATE TABLE IF NOT EXISTS `shadowdata_/", "CREATE TABLE IF NOT EXISTS `{$prefix}`.`shadowdata_", $create_sql);
+      }
+      CRM_Core_DAO::executeQuery($create_sql);
+    }
+    Civi::settings()->set('shadowdata_dbname', $prefix);
+  }
 }

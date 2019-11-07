@@ -26,19 +26,6 @@
   </tbody>
 </table>
 
-{* upload section *}
-<br/>
-<h3>{ts domain="de.systopia.shadowdata"}Upload More Contact Records{/ts}</h3>
-<div id="help">
-  {ts domain="de.systopia.shadowdata"}To import more data you need to upload an ISO 8859-1 encoded CSV file with ';' separators.{/ts}
-  {ts 1=$contact_template_link domain="de.systopia.shadowdata"}You can download a template <a download='ShadowContacts.csv' href="%1">HERE</a>{/ts}
-</div>
-<div class="crm-section">
-  <div class="label">{$form.contact_import_file.label}</div>
-  <div class="content">{$form.contact_import_file.html}</div>
-  <div class="clear"></div>
-</div>
-
 <div class="crm-submit-buttons">
 {include file="CRM/common/formButtons.tpl" location="bottom"}
 </div>
