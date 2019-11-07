@@ -24,6 +24,7 @@ class CRM_Shadowdata_Contact {
   public static $fields_email    = ['email'];
   public static $fields_phone    = ['phone'];
   public static $file_header     = ['code','use_by','source','contact_type','organization_name','household_name','first_name','last_name','formal_title','prefix_id','suffix_id','gender_id','birth_date','job_title','email','phone','street_address','supplemental_address_1','supplemental_address_2','city','postal_code','country_id'];
+  public static $integer_fields  = ['contact_id', 'prefix_id', 'suffix_id', 'gender_id', 'country_id'];
 
   /**
    * Unlock/get the contact with the given code
@@ -173,17 +174,42 @@ class CRM_Shadowdata_Contact {
     $sql_params = [];
     $sql_vars   = [];
     foreach ($row as $name => $value) {
-      $sql_params[] = [$value, 'String'];
-      $sql_var = "%" . count($sql_vars);
-      if ($name == 'country_id') {
-        $sql_vars[]   = "(SELECT id FROM civicrm_country WHERE iso_code = {$sql_var})";
+      $sql_vars[] = "%" . count($sql_vars);
+      if (in_array($name, self::$integer_fields)) {
+        if ($name == 'country_id') {
+          $sql_params[] = [self::lookupCountryID($value), 'Integer'];
+        } else {
+          $sql_params[] = [((int) $value), 'Integer'];
+        }
       } else {
-        $sql_vars[] = $sql_var;
+        if ($name == 'birth_date') {
+          $sql_params[] = [$value, 'Date'];
+        } else {
+          $sql_params[] = [$value, 'String'];
+        }
       }
     }
     // run the query
-    CRM_Core_DAO::executeQuery("INSERT INTO {$table_name} (import_date, " . implode(',', array_keys($row)) . ") VALUES (NOW(), " . implode(',', $sql_vars) . ");", $sql_params);
+    $sql = "INSERT INTO {$table_name} (import_date, " . implode(',', array_keys($row)) . ") VALUES (NOW(), " . implode(',', $sql_vars) . ");";
+    CRM_Core_DAO::executeQuery("INSERT INTO {$table_name} (import_date," . implode(',', array_keys($row)) . ") VALUES (NOW(), " . implode(',', $sql_vars) . ");", $sql_params);
     return TRUE;
+  }
+
+  /**
+   * Resolve the country ID
+   * @param $country_code string ID or two-character country code
+   * @return int CiviCRM country ID
+   */
+  protected static function lookupCountryID($country_code) {
+    if (is_numeric($country_code)) {
+      return $country_code;
+    }
+
+    static $iso2country_id = NULL;
+    if ($iso2country_id === NULL) {
+      $iso2country_id = array_flip(CRM_Core_PseudoConstant::countryIsoCode());
+    }
+    return CRM_Utils_Array::value($country_code, $iso2country_id, 0);
   }
 
   /**
