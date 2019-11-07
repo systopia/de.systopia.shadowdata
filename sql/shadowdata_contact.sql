@@ -35,6 +35,5 @@ CREATE TABLE IF NOT EXISTS `shadowdata_contact`(
     INDEX `contact_id` (contact_id),
     INDEX `use_by` (use_by),
     INDEX `import_date` (import_date),
-    INDEX `source` (source),
-    CONSTRAINT FK_civicrm_shadowdata_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE SET NULL
+    INDEX `source` (source)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
