@@ -72,6 +72,7 @@ class CRM_Shadowdata_Form_ShadowData extends CRM_Core_Form {
       } else {
         CRM_Core_Session::setStatus(E::ts('Incorrect file type, expected CSV file.'), E::ts('Import Failed'), 'error');
       }
+      CRM_Utils_System::redirect(CRM_Utils_System::url('civicrm/shadowdata', 'reset=1'));
     }
 
     parent::postProcess();

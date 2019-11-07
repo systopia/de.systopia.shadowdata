@@ -142,7 +142,7 @@ class CRM_Shadowdata_Contact {
       // convert row in to row_data
       $row = [];
       for ($i = 0; $i < count($header); $i++) {
-        $row[$header[$i]] = $raw_row[$i];
+        $row[$header[$i]] = iconv('ISO 8859-1', 'UTF8', $raw_row[$i]);
       }
 
       if (self::importRow($row)) {
@@ -233,7 +233,7 @@ class CRM_Shadowdata_Contact {
     $stats[E::ts("Total datasets outdated")] = self::percentage($general_result->outdated, $general_result->total);
 
     // run by source
-    $source_result = CRM_Core_DAO::executeQuery($query);
+    $source_result = CRM_Core_DAO::executeQuery($query . " GROUP BY source");
     while ($source_result->fetch()) {
       $source_name = $source_result->source;
       $stats[E::ts("'%1' datasets", [1 => $source_name])]          = (int) $source_result->total;
