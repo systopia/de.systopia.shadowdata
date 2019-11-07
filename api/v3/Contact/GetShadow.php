@@ -26,7 +26,7 @@ function civicrm_api3_contact_get_shadow($params) {
     if (empty($params['is_deleted'])) {
       $params['is_deleted'] = 0;
     }
-    return civicrm_api3('Contact', 'getsingle', $params);
+    return civicrm_api3('Contact', 'get', $params);
   } else {
     return civicrm_api3_create_error(E::ts("Contact not found"));
   }

@@ -3,7 +3,7 @@
   <item>
     <path>civicrm/shadowdata</path>
     <page_callback>CRM_Shadowdata_Form_ShadowData</page_callback>
-    <title>ShadowData Settings</title>
+    <title>ShadowData Stats</title>
     <access_arguments>administer CiviCRM</access_arguments>
     <adminGroup>CiviContribute</adminGroup>
     <component>CiviContribute</component>
@@ -13,7 +13,7 @@
   <item>
     <path>civicrm/shadowdata/import</path>
     <page_callback>CRM_Shadowdata_Form_ShadowDataImport</page_callback>
-    <title>ShadowData Stats</title>
+    <title>ShadowData Settings</title>
     <access_arguments>administer CiviCRM</access_arguments>
     <adminGroup>CiviContribute</adminGroup>
     <component>CiviContribute</component>
