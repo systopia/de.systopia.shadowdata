@@ -270,7 +270,7 @@ class CRM_Shadowdata_Contact {
   protected static function getData($fields, $record) {
     $data = [];
     foreach ($fields as $field) {
-      if (isset($record->$field)) {
+      if (!empty($record->$field)) {
         $data[$field] = $record->$field;
       } else {
         $data[$field] = NULL;
