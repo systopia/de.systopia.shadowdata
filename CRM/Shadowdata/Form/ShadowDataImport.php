@@ -40,7 +40,7 @@ class CRM_Shadowdata_Form_ShadowDataImport extends CRM_Core_Form {
         'shadowdata_db',
         E::ts('Database for shadowdata tables'));
     $this->addRule('shadowdata_db', E::ts("invalid characters"), 'regex', '/^[a-zA-Z0-9_]*$/');
-    $this->setDefaults(['shadowdata_db', CRM_Shadowdata_Config::getShadowdataTableDB()]);
+    $this->setDefaults(['shadowdata_db' => CRM_Shadowdata_Config::getShadowdataTableDB()]);
 
     $this->addButtons(array(
         array(
