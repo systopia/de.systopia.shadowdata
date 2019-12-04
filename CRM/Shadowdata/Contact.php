@@ -40,7 +40,7 @@ class CRM_Shadowdata_Contact {
     $table_name = self::getTableName();
     $record     = CRM_Core_DAO::executeQuery("
         SELECT id AS record_id, contact_id AS contact_id 
-        FROM `{$table_name}` WHERE code = %1 
+        FROM {$table_name} WHERE code = %1 
           AND (contact_id IS NOT NULL OR use_by > NOW() OR use_by IS NULL);", [1 => [$code, 'String']]);
     if (!$record->fetch()) {
       // there is no such record
@@ -65,7 +65,7 @@ class CRM_Shadowdata_Contact {
     $record_id = (int) $record_id;
     // first, get the full contact data
     $all_fields = array_merge(self::$fields_metadata, self::$fields_contact, self::$fields_address, self::$fields_email, self::$fields_phone);
-    $record = CRM_Core_DAO::executeQuery("SELECT " . implode(',', $all_fields) . " FROM " . $table_name = self::getTableName() . " WHERE id = {$record_id}");
+    $record = CRM_Core_DAO::executeQuery("SELECT " . implode(',', $all_fields) . " FROM " . self::getTableName() . " WHERE id = {$record_id}");
     if (!$record->fetch()) {
       throw new Exception("Shadow contact record {$record_id} could not be found");
     }
@@ -109,7 +109,7 @@ class CRM_Shadowdata_Contact {
       $transaction = NULL;
 
       // update record (set contact ID and unlock timestamp)
-      CRM_Core_DAO::executeQuery("UPDATE " . $table_name = self::getTableName() . " SET contact_id ={$contact_id}, unlock_date = NOW() WHERE id = {$record_id}");
+      CRM_Core_DAO::executeQuery("UPDATE " . self::getTableName() . " SET contact_id ={$contact_id}, unlock_date = NOW() WHERE id = {$record_id}");
 
     } catch (Exception $ex) {
       if ($transaction) {
@@ -280,15 +280,15 @@ class CRM_Shadowdata_Contact {
   }
 
   /**
-   * Get the fully qualified table name
+   * Get the fully qualified table name, including the backticks
    */
   public static function getTableName() {
     $table_name = self::$table_name;
     $database = CRM_Shadowdata_Config::getShadowdataTableDB();
     if ($database) {
-      return "{$database}.{$table_name}";
+      return "`{$database}`.`{$table_name}`";
     } else {
-      return $table_name;
+      return "`{$table_name}`";
     }
   }
 }
