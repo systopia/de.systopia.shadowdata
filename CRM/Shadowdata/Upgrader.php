@@ -18,7 +18,7 @@ use CRM_Shadowdata_ExtensionUtil as E;
 /**
  * Collection of upgrade steps.
  */
-class CRM_Shadowdata_Upgrader extends CRM_Shadowdata_Upgrader_Base {
+class CRM_Shadowdata_Upgrader extends CRM_Extension_Upgrader_Base {
 
   /**
    * Create databases

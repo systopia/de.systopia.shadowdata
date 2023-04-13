@@ -18,10 +18,20 @@
   <version>0.2</version>
   <develStage>stable</develStage>
   <compatibility>
-    <ver>5.0</ver>
+    <ver>5.38</ver>
   </compatibility>
   <comments>This module should facilitate the leased contact data, that will automatically copied into the CiviCRM database, should they contact you with the right code.</comments>
   <civix>
     <namespace>CRM/Shadowdata</namespace>
+    <format>23.02.1</format>
   </civix>
+  <mixins>
+    <mixin>menu-xml@1.0.0</mixin>
+    <mixin>smarty-v2@1.0.1</mixin>
+  </mixins>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <upgrader>CRM_Shadowdata_Upgrader</upgrader>
 </extension>
