@@ -1,4 +1,4 @@
-# SYSTOPIA Shawdow-Data Extension
+# SYSTOPIA Shadow-Data Extension
 
 ## What does it do?
 
